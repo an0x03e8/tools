@@ -4,7 +4,7 @@
 Very simple HTTP Basic Authentication brute force script.
 
 """
-__author: an1000__
+__author__: "an1000"
 
 
 
