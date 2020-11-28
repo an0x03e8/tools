@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(description='HTTP Basic Auth brute')
 parser.add_argument('-u', '--user',dest="username", type=str, help="Single username to use: 'administrator'")
 parser.add_argument('-c', '--creds', dest="creds", type=argparse.FileType('r', encoding='UTF-8'), help="Credentials: 'username:password'")
 parser.add_argument('-U', '--usernames', dest="usernames", type=argparse.FileType('r', encoding='UTF-8'))
-parser.add_argument('-p', '--passwords', dest="passwords", type=argparse.FileType('r', encoding='UTF-8'))
+parser.add_argument('-P', '--passwords', dest="passwords", type=argparse.FileType('r', encoding='UTF-8'))
 parser.add_argument(dest="url", help='Url to attack')
 args = parser.parse_args()
 
