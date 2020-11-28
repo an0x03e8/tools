@@ -4,7 +4,7 @@
 Very simple HTTP Basic Authentication brute force script.
 
 """
-__author__: "an1000"
+__author__= "an1000"
 
 
 
@@ -48,5 +48,5 @@ print("----------------")
 if len(found)>0:
 	print("Found something:")
 	for i in found:
-		print(i[0]+":"i[1])
+		print(i[0]+":"+i[1])
 
